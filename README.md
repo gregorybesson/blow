@@ -10,7 +10,7 @@ Myles Borins quote:
 > basically you have current state, input, and a co-efficient
 > `current state = current state * co + input * 1 -  co`
 
-This advice could be applied to the microphone captation : If I apply this filter and verify that it is satisfied during a sufficent amount of time, I can conclude that the user is blowing in his Mic ! (Good Job)
+This advice could be applied to the microphone captation : If I apply this filter and verify that it is satisfied during a sufficent amount of time, I can conclude that the user is blowing in his Mic !
 
 Of course, if the sound you produce is stable enough, you'll be able to trigger the blow event. 
 
