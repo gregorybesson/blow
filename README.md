@@ -1,7 +1,6 @@
-# Yet Another Blowjob
+# Yet Another blow effect
 
 Detect the blow of your user to create innovative interactions ;)
-
 
 1. I've used the excellent https://github.com/mattdiamond/Recorderjs audio plugin from Matt Diamond.
 2. I've added the PR from https://github.com/osondoar for managing callbacks
