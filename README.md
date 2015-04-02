@@ -1,4 +1,4 @@
-# Yet Another blow effect
+# Yet Another Blow Effect
 
 Detect the blow of your user to create innovative interactions ;)
 
