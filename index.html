@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Blow Job !</title>
+</head>
+<body>
+
+  <h1 id="blowjob"></h1>
+
+  <p>Blow on your Mic and enjoy !</p>
+
+  <button onclick="startRecording(this);">Listen</button>
+  <button onclick="stopRecording(this);" disabled>stop</button>
+
+  <script>
+
+  var audio_context;
+  var recorder;
+
+  function startUserMedia(stream) {
+    var input = audio_context.createMediaStreamSource(stream);
+
+    var micPower = 0;
+   	var ALPHA = 0.5;
+   	var i = 0;
+
+    var config = {};
+   	config.numChannels = 1;
+    config.recordingCallback = function(channelData){
+    	//console.log(channelData);
+    	
+    	var instantaneousPower = channelData[0];
+
+    	// low-pass filter
+    	micPower = ALPHA * instantaneousPower + (1.0 - ALPHA) * micPower;
+
+    	if(Math.abs(micPower) > 0.01){
+    		i++;
+    		// If low-pass filter condition is fulfilled >= 5 times
+    		if(i > 5){
+    			console.log('user is blowing !');
+    			document.getElementById('blowjob').innerHTML = "User is blowing !";
+    		}
+    	} else {
+    		i = 0;
+    		document.getElementById('blowjob').innerHTML = "";
+    	}
+	  };
+
+    recorder = new Recorder(input, config);
+  }
+
+  function startRecording(button) {
+    recorder && recorder.record();
+    button.disabled = true;
+    button.nextElementSibling.disabled = false;
+  }
+
+  function stopRecording(button) {
+    recorder && recorder.stop();
+    button.disabled = true;
+    button.previousElementSibling.disabled = false;
+    
+    recorder.clear();
+  }
+
+  window.onload = function init() {
+    try {
+      // webkit shim
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+      window.URL = window.URL || window.webkitURL;
+      
+      audio_context = new AudioContext;
+
+    } catch (e) {
+      alert('No web audio support in this browser!');
+    }
+    
+    navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+
+    });
+  };
+  </script>
+
+  <script src="recorder.js"></script>
+</body>
+</html>
